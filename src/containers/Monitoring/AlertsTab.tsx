@@ -2,8 +2,10 @@ import { useEffect, useMemo } from 'react';
 import { AlertsCards } from '@components/monitoring';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { MonitoringActions } from '@redux/monitoring/monitoringSlice';
-import { useGetAlertsDataQuery } from '@services/monitoring/monitoring.api';
-import { KSFlexBox } from 'ks-common';
+import { MonitoringAPI } from '@services/monitoring/monitoring.api';
+import { KSFlexBox, ErrorIconType } from 'ks-common';
+import { getApiErrorMessage } from 'ks-common/utils';
+import { emitNotification } from '@redux/notification/notificationSlice';
 import { AlertsTabProps, AlertsTabReturn } from './AlertsTab.interface';
 
 export const AlertsTab: React.FC<AlertsTabProps> = ({ className }) => {
@@ -11,38 +13,56 @@ export const AlertsTab: React.FC<AlertsTabProps> = ({ className }) => {
     (state) => state.monitoring
   );
 
+  const { organizationId, scopeId } = useAppSelector((state) => state.mfeData);
+
   const dispatch = useAppDispatch();
 
-  const {
-    data: alertsData,
-    isLoading,
-    isError,
-    refetch,
-  } = useGetAlertsDataQuery();
+  const fetchAlertsData = async () => {
+    try {
+      dispatch(MonitoringActions.setAlertsLoading(true));
 
-  useEffect(() => {
-    dispatch(MonitoringActions.setAlertsLoading(isLoading));
-  }, [isLoading, dispatch]);
+      const alertsResponse = await MonitoringAPI.getAlertsData({
+        orgId: organizationId,
+        projectId: scopeId,
+      });
 
-  useEffect(() => {
-    if (alertsData?.alerts_summary) {
-      dispatch(MonitoringActions.setAlertsSummaryData(alertsData.alerts_summary));
+      if (alertsResponse.status === 200) {
+        dispatch(
+          MonitoringActions.setAlertsSummaryData(alertsResponse.data.result.alerts_summary)
+        );
+      } else {
+        dispatch(
+          emitNotification({
+            message: alertsResponse.data.status.user_message,
+            type: ErrorIconType.Error,
+          })
+        );
+      }
+    } catch (error) {
+      dispatch(
+        emitNotification({
+          message: getApiErrorMessage(error),
+          type: ErrorIconType.Error,
+        })
+      );
+    } finally {
+      dispatch(MonitoringActions.setAlertsLoading(false));
     }
-  }, [alertsData, dispatch]);
+  };
 
   useEffect(() => {
-    if (isError) {
-      console.error('Failed to fetch alerts data');
+    if (!alertsSummaryData) {
+      fetchAlertsData();
     }
-  }, [isError]);
+  }, [scopeId]);
 
   const alertsTabReturn: AlertsTabReturn = useMemo(
     () => ({
       alertsSummaryData,
       alertsLoading,
-      refetchAlertsData: refetch,
+      refetchAlertsData: fetchAlertsData,
     }),
-    [alertsSummaryData, alertsLoading, refetch]
+    [alertsSummaryData, alertsLoading]
   );
 
   return (

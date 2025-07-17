@@ -1,10 +1,7 @@
 import { useMemo } from 'react';
 import { KSMetricCard, MetricItem } from 'ks-common';
 import { t } from 'ks-common/locales';
-import { useAppDispatch } from '@redux/hooks';
 import { CardLoader } from '@components/common';
-import { MonitoringActions } from '@redux/monitoring/monitoringSlice';
-import { ADVANCE_FILTER_KEYS_ALERTS } from '@containers/Monitoring/constants';
 import { AlertsByTypeCardProps } from './AlertsByTypeCard.interface';
 
 export const AlertsByTypeCard: React.FC<AlertsByTypeCardProps> = ({
@@ -12,8 +9,6 @@ export const AlertsByTypeCard: React.FC<AlertsByTypeCardProps> = ({
   alertsLoading,
   className,
 }) => {
-  const dispatch = useAppDispatch();
-
   const { subscriptionExpirationAlerts, capacityUsageAlerts } = useMemo(() => {
     const subscriptionExpiration = 
       alertsSummaryData?.subscription_expiration_alerts?.length || 0;
@@ -26,44 +21,21 @@ export const AlertsByTypeCard: React.FC<AlertsByTypeCardProps> = ({
     };
   }, [alertsSummaryData]);
 
-  const handleViewClick = (label: string, value: string) => {
-    dispatch(
-      MonitoringActions.setFilters([
-        {
-          id: ADVANCE_FILTER_KEYS_ALERTS.CARD_FILTER,
-          name: 'Card filter',
-          data: { label, value },
-          initiateClick: true,
-        },
-      ])
-    );
-  };
-
   const alertsByTypeMetrics: MetricItem[] = useMemo(
     () => [
       {
-        id: ADVANCE_FILTER_KEYS_ALERTS.SUBSCRIPTION_EXPIRATION,
+        id: 'subscription_expiration_alerts',
         label: t('keystone.labels.subscriptionExpiration'),
         value: subscriptionExpirationAlerts,
         iconBgColor: 'i7',
         isButtonDisabled: subscriptionExpirationAlerts === 0,
-        onViewClick: () =>
-          handleViewClick(
-            t('keystone.labels.subscriptionExpiration'),
-            ADVANCE_FILTER_KEYS_ALERTS.SUBSCRIPTION_EXPIRATION
-          ),
       },
       {
-        id: ADVANCE_FILTER_KEYS_ALERTS.CAPACITY_USAGE,
+        id: 'capacity_usage_alerts',
         label: t('keystone.labels.capacityUsage'),
         value: capacityUsageAlerts,
         iconBgColor: 'i3',
         isButtonDisabled: capacityUsageAlerts === 0,
-        onViewClick: () =>
-          handleViewClick(
-            t('keystone.labels.capacityUsage'),
-            ADVANCE_FILTER_KEYS_ALERTS.CAPACITY_USAGE
-          ),
       },
     ],
     [alertsSummaryData]

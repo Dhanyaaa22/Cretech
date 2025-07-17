@@ -1,3 +1,24 @@
+// Existing monitors interfaces
+export interface MonitorsResult {
+  id: string;
+  monitor_name: string;
+  condition: MonitorsCondition;
+  severity: string;
+  subscriptions: string[];
+  performance_levels: string[];
+  created_by: string;
+  status: string;
+  alert_monitors_timestamp: string;
+  last_update_timestamp: string;
+}
+
+export interface MonitorsCondition {
+  condition_type: string;
+  equivalence: string;
+  value: string;
+}
+
+// Alerts interfaces
 export interface AlertsSummaryData {
   critical_alerts: Alert[];
   warning_alerts: Alert[];

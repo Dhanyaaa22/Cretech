@@ -1,13 +1,9 @@
-import { SelectedFilters } from 'ks-common';
-import { AlertsSummaryData } from '@services/monitoring/monitoring.interface';
+import { MonitorsResult, AlertsSummaryData } from '@services/monitoring/monitoring.interface';
 
 export interface MonitoringState {
-  filters: SelectedFilters[];
+  monitorsData: MonitorsResult[];
+  monitorsLoading: boolean;
+  monitorsTimestamp: string | null;
   alertsSummaryData: AlertsSummaryData | null;
   alertsLoading: boolean;
-}
-
-export interface FilteredAlertsData {
-  filteredAlerts: any[];
-  totalCount: number;
 }

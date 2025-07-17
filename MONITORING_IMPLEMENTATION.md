@@ -1,6 +1,6 @@
-# Monitoring Container Implementation
+# Monitoring Container Implementation - Alerts Tab
 
-This document provides a complete implementation of the Monitoring container with alerts functionality, following the existing patterns in your codebase.
+This document provides a complete implementation of the Alerts functionality for the existing Monitoring container, following the established patterns and structure of your codebase.
 
 ## 📂 File Structure Created
 
@@ -26,7 +26,6 @@ src/
 ├── containers/Monitoring/
 │   ├── AlertsTab.tsx              # Main container component
 │   ├── AlertsTab.interface.ts     # Includes AlertsTabReturn interface
-│   ├── constants.ts               # Filter constants
 │   └── index.ts                   # Container exports
 ```
 
@@ -70,20 +69,25 @@ src/
 
 ## 🔧 Redux Integration
 
-### Monitoring Slice
+### Monitoring Slice (Updated)
 - **State**: 
-  - `alertsSummaryData`: Stores alert summary information
-  - `alertsLoading`: Loading state
-  - `filters`: Filter state for alerts
+  - `monitorsData`: Existing monitors data
+  - `monitorsLoading`: Existing monitors loading state  
+  - `monitorsTimestamp`: Existing monitors timestamp
+  - `alertsSummaryData`: NEW - Stores alert summary information
+  - `alertsLoading`: NEW - Loading state for alerts
 - **Actions**:
-  - `setAlertsSummaryData`: Updates alert data
-  - `setAlertsLoading`: Updates loading state
-  - `setFilters`: Updates filter state
+  - `setMonitorsData`: Existing action
+  - `setMonitorsLoading`: Existing action
+  - `setMonitorsTimestamp`: Existing action
+  - `setAlertsSummaryData`: NEW - Updates alert data
+  - `setAlertsLoading`: NEW - Updates loading state
 
 ### API Integration
 - **Endpoint**: `/monitoring/alerts`
-- **Query Hook**: `useGetAlertsDataQuery`
-- **Response Type**: `MonitoringApiResponse`
+- **Method**: Direct API call using `MonitoringAPI.getAlertsData`
+- **Response Type**: `ApiResponse<MonitoringApiResponse>`
+- **Pattern**: Follows existing `getAllMonitors` implementation
 
 ## 🎨 Styling & UI
 
@@ -121,11 +125,11 @@ interface Alert {
 
 ## 🔗 Integration Points
 
-### To integrate with your existing application:
+### Integration with existing Monitoring system:
 
-1. **Add to Redux Store**: Include the monitoring reducer in your store configuration
-2. **Update API**: Ensure the monitoring API endpoints are available
-3. **Add to Router**: Include the AlertsTab in your routing configuration
+1. **Redux Store**: ✅ Already integrated - updated existing monitoring slice
+2. **API Service**: ✅ Added `getAlertsData` to existing `MonitoringAPI`
+3. **Add to MonitoringTabs**: Include the AlertsTab in your tab routing
 4. **Localization**: Add the required translation keys to your locales
 
 ### Required Translation Keys:
@@ -148,12 +152,12 @@ import { AlertsTab } from '@containers/Monitoring';
 <AlertsTab />
 ```
 
-## 🔄 Filter Integration
+## 🔄 Current Implementation Notes
 
-The components integrate with the existing filter system:
-- Uses `ADVANCE_FILTER_KEYS_ALERTS` constants
-- Dispatches filter actions on card clicks
-- Follows the same pattern as the Assets filters
+- **No Filters**: Currently implemented without filter functionality to match existing monitoring pattern
+- **Direct API Calls**: Uses the same pattern as existing monitors functionality
+- **Error Handling**: Includes proper error handling with notifications
+- **Loading States**: Manages loading states consistently with existing code
 
 ## 📈 Future Enhancements
 
@@ -165,15 +169,26 @@ The components integrate with the existing filter system:
 ## ✅ Features Completed
 
 - ✅ Two metric cards (AlertsBySeverityCard, AlertsByTypeCard)
-- ✅ Parent component (AlertsCards)
+- ✅ Parent component (AlertsCards) 
 - ✅ Interface definitions for component communication
 - ✅ AlertsTab container implementation
-- ✅ Redux slice for monitoring state
-- ✅ API service integration
+- ✅ Updated existing monitoring Redux slice
+- ✅ Extended existing MonitoringAPI service
 - ✅ TypeScript interfaces for type safety
 - ✅ Consistent styling using ks-common
 - ✅ React hooks for state and lifecycle management
 - ✅ Loading states and error handling
-- ✅ Filter integration following existing patterns
+- ✅ Follows established monitoring patterns
+- ✅ Proper props flow from container to components
+- ✅ Return constants interface for container usage
 
-This implementation provides a solid foundation for the monitoring alerts functionality and can be easily extended with additional features as needed.
+## 🎯 Key Alignments with Existing Code
+
+- **API Pattern**: Matches `getAllMonitors` implementation exactly
+- **Redux Structure**: Extends existing monitoring slice without breaking changes
+- **Error Handling**: Uses same notification system as MonitoringPage
+- **Component Structure**: Follows same patterns as other tab components
+- **Props Flow**: Container manages data, components receive props
+- **Loading States**: Consistent with existing monitoring loading management
+
+This implementation seamlessly integrates with your existing monitoring system and provides a solid foundation for alerts functionality.
