@@ -1,5 +1,6 @@
 export interface AlertsBySeverityCardProps {
   className?: string;
+  handleViewClick?: (alertType: string) => void;
 }
 
 export enum ALERTS_SEVERITY_CARD_KEYS {

@@ -5,18 +5,15 @@ import { KSMetricCard, MetricItem } from 'ks-common';
 import { t } from 'ks-common/locales';
 import { useAppSelector } from '@redux/hooks';
 import { CardLoader } from '@components/common';
-import { useMessageEvents } from '@hooks/messageEvents/useMessageEvents';
-import { MESSAGE_EVENTS } from '@mfe/MessageEvents.interface';
 import { AlertsBySeverityCardProps, ALERTS_SEVERITY_CARD_KEYS } from './AlertsBySeverityCard.interface';
 
 export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
   className,
+  handleViewClick,
 }) => {
   const { alertsSummaryData, alertsLoading } = useAppSelector(
     (state) => state.monitoring
   );
-  
-  const { triggerEvent } = useMessageEvents();
 
   const { criticalAlerts, warningAlerts, informationalAlerts } = useMemo(() => {
     const critical = alertsSummaryData?.critical_alerts?.length || 0;
@@ -30,13 +27,6 @@ export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
     };
   }, [alertsSummaryData]);
 
-  const handleViewClick = (alertType: string) => {
-    triggerEvent('/monitoring/alerts', {
-      childPath: 'details',
-      tabPath: alertType,
-    });
-  };
-
   const alertsBySeverityMetrics: MetricItem[] = useMemo(
     () => [
       {
@@ -46,7 +36,7 @@ export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
         Icon: NoticeTriangleIcon,
         iconBgColor: 'i8',
         isButtonDisabled: criticalAlerts === 0,
-        onViewClick: () => handleViewClick(ALERTS_SEVERITY_CARD_KEYS.CRITICAL_ALERTS),
+        onViewClick: handleViewClick ? () => handleViewClick(ALERTS_SEVERITY_CARD_KEYS.CRITICAL_ALERTS) : undefined,
       },
       {
         id: ALERTS_SEVERITY_CARD_KEYS.WARNING_ALERTS,
@@ -55,7 +45,7 @@ export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
         Icon: NoticeTriangleIcon,
         iconBgColor: 'i6',
         isButtonDisabled: warningAlerts === 0,
-        onViewClick: () => handleViewClick(ALERTS_SEVERITY_CARD_KEYS.WARNING_ALERTS),
+        onViewClick: handleViewClick ? () => handleViewClick(ALERTS_SEVERITY_CARD_KEYS.WARNING_ALERTS) : undefined,
       },
       {
         id: ALERTS_SEVERITY_CARD_KEYS.INFORMATIONAL_ALERTS,
@@ -64,7 +54,7 @@ export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
         Icon: InformationIcon,
         iconBgColor: 'i4',
         isButtonDisabled: informationalAlerts === 0,
-        onViewClick: () => handleViewClick(ALERTS_SEVERITY_CARD_KEYS.INFORMATIONAL_ALERTS),
+        onViewClick: handleViewClick ? () => handleViewClick(ALERTS_SEVERITY_CARD_KEYS.INFORMATIONAL_ALERTS) : undefined,
       },
     ],
     [criticalAlerts, warningAlerts, informationalAlerts, handleViewClick]

@@ -6,6 +6,7 @@ import { MonitoringAPI } from '@services/monitoring/monitoring.api';
 import { KSFlexBox, ErrorIconType } from 'ks-common';
 import { getApiErrorMessage } from 'ks-common/utils';
 import { emitNotification } from '@redux/notification/notificationSlice';
+import { useMessageEvents } from '@hooks/messageEvents/useMessageEvents';
 
 export interface AlertsTabProps {
   className?: string;
@@ -25,6 +26,7 @@ export const AlertsTab: React.FC<AlertsTabProps> = ({ className }) => {
   const { organizationId, scopeId } = useAppSelector((state) => state.mfeData);
 
   const dispatch = useAppDispatch();
+  const { triggerEvent } = useMessageEvents();
 
   const fetchAlertsData = async () => {
     try {
@@ -65,6 +67,13 @@ export const AlertsTab: React.FC<AlertsTabProps> = ({ className }) => {
     }
   }, [scopeId]);
 
+  const handleViewClick = (alertType: string) => {
+    triggerEvent('/monitoring/alerts', {
+      childPath: 'details',
+      tabPath: alertType,
+    });
+  };
+
   const alertsTabReturn: AlertsTabReturn = useMemo(
     () => ({
       alertsSummaryData,
@@ -80,7 +89,7 @@ export const AlertsTab: React.FC<AlertsTabProps> = ({ className }) => {
       gap={6} 
       className={`kms-mt-6 ${className || ''}`}
     >
-      <AlertsCards />
+      <AlertsCards handleViewClick={handleViewClick} />
       {/* Future: Add AlertsTable component here */}
     </KSFlexBox>
   );

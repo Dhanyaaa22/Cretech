@@ -1,5 +1,6 @@
 export interface AlertsByTypeCardProps {
   className?: string;
+  handleViewClick?: (alertType: string) => void;
 }
 
 export enum ALERTS_TYPE_CARD_KEYS {

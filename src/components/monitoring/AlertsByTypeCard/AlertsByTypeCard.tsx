@@ -3,18 +3,15 @@ import { KSMetricCard, MetricItem } from 'ks-common';
 import { t } from 'ks-common/locales';
 import { useAppSelector } from '@redux/hooks';
 import { CardLoader } from '@components/common';
-import { useMessageEvents } from '@hooks/messageEvents/useMessageEvents';
-import { MESSAGE_EVENTS } from '@mfe/MessageEvents.interface';
 import { AlertsByTypeCardProps, ALERTS_TYPE_CARD_KEYS } from './AlertsByTypeCard.interface';
 
 export const AlertsByTypeCard: React.FC<AlertsByTypeCardProps> = ({
   className,
+  handleViewClick,
 }) => {
   const { alertsSummaryData, alertsLoading } = useAppSelector(
     (state) => state.monitoring
   );
-  
-  const { triggerEvent } = useMessageEvents();
 
   const { subscriptionExpirationAlerts, capacityUsageAlerts } = useMemo(() => {
     const subscriptionExpiration = 
@@ -28,13 +25,6 @@ export const AlertsByTypeCard: React.FC<AlertsByTypeCardProps> = ({
     };
   }, [alertsSummaryData]);
 
-  const handleViewClick = (alertType: string) => {
-    triggerEvent('/monitoring/alerts', {
-      childPath: 'details',
-      tabPath: alertType,
-    });
-  };
-
   const alertsByTypeMetrics: MetricItem[] = useMemo(
     () => [
       {
@@ -43,7 +33,7 @@ export const AlertsByTypeCard: React.FC<AlertsByTypeCardProps> = ({
         value: subscriptionExpirationAlerts,
         iconBgColor: 'i7',
         isButtonDisabled: subscriptionExpirationAlerts === 0,
-        onViewClick: () => handleViewClick(ALERTS_TYPE_CARD_KEYS.SUBSCRIPTION_EXPIRATION),
+        onViewClick: handleViewClick ? () => handleViewClick(ALERTS_TYPE_CARD_KEYS.SUBSCRIPTION_EXPIRATION) : undefined,
       },
       {
         id: ALERTS_TYPE_CARD_KEYS.CAPACITY_USAGE,
@@ -51,7 +41,7 @@ export const AlertsByTypeCard: React.FC<AlertsByTypeCardProps> = ({
         value: capacityUsageAlerts,
         iconBgColor: 'i3',
         isButtonDisabled: capacityUsageAlerts === 0,
-        onViewClick: () => handleViewClick(ALERTS_TYPE_CARD_KEYS.CAPACITY_USAGE),
+        onViewClick: handleViewClick ? () => handleViewClick(ALERTS_TYPE_CARD_KEYS.CAPACITY_USAGE) : undefined,
       },
     ],
     [subscriptionExpirationAlerts, capacityUsageAlerts, handleViewClick]

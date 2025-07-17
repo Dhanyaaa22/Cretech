@@ -5,6 +5,7 @@ import { AlertsCardsProps } from './AlertsCards.interface';
 
 export const AlertsCards: React.FC<AlertsCardsProps> = ({
   className,
+  handleViewClick,
 }) => {
   return (
     <KSFlexBox
@@ -12,10 +13,10 @@ export const AlertsCards: React.FC<AlertsCardsProps> = ({
       className={`kms-gap-[10px] kms-md:kms-flex-row ${className || ''}`}
     >
       <KSFlexBox className="kms-gap-[10px] kms-md:kms-w-[62%]">
-        <AlertsBySeverityCard />
+        <AlertsBySeverityCard handleViewClick={handleViewClick} />
       </KSFlexBox>
       <KSFlexBox className="kms-md:kms-w-[38%]">
-        <AlertsByTypeCard />
+        <AlertsByTypeCard handleViewClick={handleViewClick} />
       </KSFlexBox>
     </KSFlexBox>
   );
