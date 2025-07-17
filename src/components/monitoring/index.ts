@@ -1,6 +1,12 @@
-export { default as AlertsBySeverityCard } from './AlertsBySeverityCard/AlertsBySeverityCard';
-export { default as AlertsByTypeCard } from './AlertsByTypeCard/AlertsByTypeCard';
-export { default as AlertsCards } from './AlertsCards/AlertsCards';
+import AlertsBySeverityCard from './AlertsBySeverityCard/AlertsBySeverityCard';
+import AlertsByTypeCard from './AlertsByTypeCard/AlertsByTypeCard';
+import AlertsCards from './AlertsCards/AlertsCards';
+
+export {
+  AlertsBySeverityCard,
+  AlertsByTypeCard,
+  AlertsCards,
+};
 
 // Export interfaces
 export type { AlertsBySeverityCardProps } from './AlertsBySeverityCard/AlertsBySeverityCard.interface';
