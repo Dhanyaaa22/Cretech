@@ -3,14 +3,17 @@ import { NoticeTriangleIcon } from '@netapp/bxp-style/react-icons/Notification';
 import { InformationIcon } from '@netapp/bxp-style/react-icons/Help';
 import { KSMetricCard, MetricItem } from 'ks-common';
 import { t } from 'ks-common/locales';
+import { useAppSelector } from '@redux/hooks';
 import { CardLoader } from '@components/common';
 import { AlertsBySeverityCardProps, ALERTS_SEVERITY_CARD_KEYS } from './AlertsBySeverityCard.interface';
 
 export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
-  alertsSummaryData,
-  alertsLoading,
   className,
 }) => {
+  const { alertsSummaryData, alertsLoading } = useAppSelector(
+    (state) => state.monitoring
+  );
+
   const { criticalAlerts, warningAlerts, informationalAlerts } = useMemo(() => {
     const critical = alertsSummaryData?.critical_alerts?.length || 0;
     const warning = alertsSummaryData?.warning_alerts?.length || 0;

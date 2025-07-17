@@ -1,14 +1,17 @@
 import { useMemo } from 'react';
 import { KSMetricCard, MetricItem } from 'ks-common';
 import { t } from 'ks-common/locales';
+import { useAppSelector } from '@redux/hooks';
 import { CardLoader } from '@components/common';
 import { AlertsByTypeCardProps, ALERTS_TYPE_CARD_KEYS } from './AlertsByTypeCard.interface';
 
 export const AlertsByTypeCard: React.FC<AlertsByTypeCardProps> = ({
-  alertsSummaryData,
-  alertsLoading,
   className,
 }) => {
+  const { alertsSummaryData, alertsLoading } = useAppSelector(
+    (state) => state.monitoring
+  );
+
   const { subscriptionExpirationAlerts, capacityUsageAlerts } = useMemo(() => {
     const subscriptionExpiration = 
       alertsSummaryData?.subscription_expiration_alerts?.length || 0;

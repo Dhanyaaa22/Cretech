@@ -4,8 +4,6 @@ import AlertsByTypeCard from '../AlertsByTypeCard/AlertsByTypeCard';
 import { AlertsCardsProps } from './AlertsCards.interface';
 
 export const AlertsCards: React.FC<AlertsCardsProps> = ({
-  alertsSummaryData,
-  alertsLoading,
   className,
 }) => {
   return (
@@ -14,16 +12,10 @@ export const AlertsCards: React.FC<AlertsCardsProps> = ({
       className={`kms-gap-[10px] kms-md:kms-flex-row ${className || ''}`}
     >
       <KSFlexBox className="kms-gap-[10px] kms-md:kms-w-[62%]">
-        <AlertsBySeverityCard
-          alertsSummaryData={alertsSummaryData}
-          alertsLoading={alertsLoading}
-        />
+        <AlertsBySeverityCard />
       </KSFlexBox>
       <KSFlexBox className="kms-md:kms-w-[38%]">
-        <AlertsByTypeCard
-          alertsSummaryData={alertsSummaryData}
-          alertsLoading={alertsLoading}
-        />
+        <AlertsByTypeCard />
       </KSFlexBox>
     </KSFlexBox>
   );

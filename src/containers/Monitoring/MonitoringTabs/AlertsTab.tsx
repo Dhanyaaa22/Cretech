@@ -80,10 +80,7 @@ export const AlertsTab: React.FC<AlertsTabProps> = ({ className }) => {
       gap={6} 
       className={`kms-mt-6 ${className || ''}`}
     >
-      <AlertsCards
-        alertsSummaryData={alertsTabReturn.alertsSummaryData}
-        alertsLoading={alertsTabReturn.alertsLoading}
-      />
+      <AlertsCards />
       {/* Future: Add AlertsTable component here */}
     </KSFlexBox>
   );
