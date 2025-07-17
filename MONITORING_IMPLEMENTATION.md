@@ -115,11 +115,48 @@ interface Alert {
   id: string;
   title: string;
   description: string;
-  severity: AlertSeverity;
-  type: AlertType;
+  severity: ALERT_SEVERITY;
+  type: ALERT_TYPE;
   timestamp: string;
   source: string;
-  status: AlertStatus;
+  status: ALERT_STATUS;
+}
+```
+
+### Enums Added
+```typescript
+// Alert-specific enums
+export enum ALERT_SEVERITY {
+  CRITICAL = 'critical',
+  WARNING = 'warning',
+  INFORMATIONAL = 'informational'
+}
+
+export enum ALERT_TYPE {
+  SUBSCRIPTION_EXPIRATION = 'subscription_expiration',
+  CAPACITY_USAGE = 'capacity_usage',
+  SYSTEM = 'system',
+  NETWORK = 'network',
+  PERFORMANCE = 'performance'
+}
+
+export enum ALERT_STATUS {
+  ACTIVE = 'active',
+  RESOLVED = 'resolved',
+  ACKNOWLEDGED = 'acknowledged'
+}
+
+// Monitor-specific enums (for existing system)
+export enum MONITOR_SEVERITY {
+  CRITICAL = 'critical',
+  WARNING = 'warning',
+  INFORMATIONAL = 'informational'
+}
+
+export enum MONITOR_STATUS {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  DISABLED = 'disabled'
 }
 ```
 

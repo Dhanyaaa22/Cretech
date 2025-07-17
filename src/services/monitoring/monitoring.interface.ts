@@ -3,13 +3,27 @@ export interface MonitorsResult {
   id: string;
   monitor_name: string;
   condition: MonitorsCondition;
-  severity: string;
+  severity: MONITOR_SEVERITY;
   subscriptions: string[];
   performance_levels: string[];
   created_by: string;
-  status: string;
+  status: MONITOR_STATUS;
   alert_monitors_timestamp: string;
   last_update_timestamp: string;
+}
+
+// Monitor Severity Enum (for existing monitors)
+export enum MONITOR_SEVERITY {
+  CRITICAL = 'critical',
+  WARNING = 'warning',
+  INFORMATIONAL = 'informational'
+}
+
+// Monitor Status Enum (for existing monitors)
+export enum MONITOR_STATUS {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  DISABLED = 'disabled'
 }
 
 export interface MonitorsCondition {
@@ -31,20 +45,22 @@ export interface Alert {
   id: string;
   title: string;
   description: string;
-  severity: AlertSeverity;
-  type: AlertType;
+  severity: ALERT_SEVERITY;
+  type: ALERT_TYPE;
   timestamp: string;
   source: string;
-  status: AlertStatus;
+  status: ALERT_STATUS;
 }
 
-export enum AlertSeverity {
+// Alert Severity Enum
+export enum ALERT_SEVERITY {
   CRITICAL = 'critical',
   WARNING = 'warning',
   INFORMATIONAL = 'informational'
 }
 
-export enum AlertType {
+// Alert Type Enum
+export enum ALERT_TYPE {
   SUBSCRIPTION_EXPIRATION = 'subscription_expiration',
   CAPACITY_USAGE = 'capacity_usage',
   SYSTEM = 'system',
@@ -52,7 +68,8 @@ export enum AlertType {
   PERFORMANCE = 'performance'
 }
 
-export enum AlertStatus {
+// Alert Status Enum
+export enum ALERT_STATUS {
   ACTIVE = 'active',
   RESOLVED = 'resolved',
   ACKNOWLEDGED = 'acknowledged'
