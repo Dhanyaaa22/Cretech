@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { KSMetricCard, MetricItem } from 'ks-common';
 import { t } from 'ks-common/locales';
 import { CardLoader } from '@components/common';
-import { AlertsByTypeCardProps } from './AlertsByTypeCard.interface';
+import { AlertsByTypeCardProps, ALERTS_TYPE_CARD_KEYS } from './AlertsByTypeCard.interface';
 
 export const AlertsByTypeCard: React.FC<AlertsByTypeCardProps> = ({
   alertsSummaryData,
@@ -24,21 +24,21 @@ export const AlertsByTypeCard: React.FC<AlertsByTypeCardProps> = ({
   const alertsByTypeMetrics: MetricItem[] = useMemo(
     () => [
       {
-        id: 'subscription_expiration_alerts',
+        id: ALERTS_TYPE_CARD_KEYS.SUBSCRIPTION_EXPIRATION,
         label: t('keystone.labels.subscriptionExpiration'),
         value: subscriptionExpirationAlerts,
         iconBgColor: 'i7',
         isButtonDisabled: subscriptionExpirationAlerts === 0,
       },
       {
-        id: 'capacity_usage_alerts',
+        id: ALERTS_TYPE_CARD_KEYS.CAPACITY_USAGE,
         label: t('keystone.labels.capacityUsage'),
         value: capacityUsageAlerts,
         iconBgColor: 'i3',
         isButtonDisabled: capacityUsageAlerts === 0,
       },
     ],
-    [alertsSummaryData]
+    [subscriptionExpirationAlerts, capacityUsageAlerts]
   );
 
   if (alertsLoading) {

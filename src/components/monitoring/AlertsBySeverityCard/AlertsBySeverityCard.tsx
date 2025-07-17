@@ -4,7 +4,7 @@ import { InformationIcon } from '@netapp/bxp-style/react-icons/Help';
 import { KSMetricCard, MetricItem } from 'ks-common';
 import { t } from 'ks-common/locales';
 import { CardLoader } from '@components/common';
-import { AlertsBySeverityCardProps } from './AlertsBySeverityCard.interface';
+import { AlertsBySeverityCardProps, ALERTS_SEVERITY_CARD_KEYS } from './AlertsBySeverityCard.interface';
 
 export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
   alertsSummaryData,
@@ -26,7 +26,7 @@ export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
   const alertsBySeverityMetrics: MetricItem[] = useMemo(
     () => [
       {
-        id: 'critical_alerts',
+        id: ALERTS_SEVERITY_CARD_KEYS.CRITICAL_ALERTS,
         label: t('keystone.labels.criticalAlerts'),
         value: criticalAlerts,
         Icon: NoticeTriangleIcon,
@@ -34,7 +34,7 @@ export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
         isButtonDisabled: criticalAlerts === 0,
       },
       {
-        id: 'warning_alerts',
+        id: ALERTS_SEVERITY_CARD_KEYS.WARNING_ALERTS,
         label: t('keystone.labels.warningAlerts'),
         value: warningAlerts,
         Icon: NoticeTriangleIcon,
@@ -42,7 +42,7 @@ export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
         isButtonDisabled: warningAlerts === 0,
       },
       {
-        id: 'informational_alerts',
+        id: ALERTS_SEVERITY_CARD_KEYS.INFORMATIONAL_ALERTS,
         label: t('keystone.labels.informationalAlerts'),
         value: informationalAlerts,
         Icon: InformationIcon,
@@ -50,7 +50,7 @@ export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
         isButtonDisabled: informationalAlerts === 0,
       },
     ],
-    [alertsSummaryData]
+    [criticalAlerts, warningAlerts, informationalAlerts]
   );
 
   if (alertsLoading) {

@@ -1,4 +1,3 @@
-export { default as AlertsTab } from './AlertsTab';
+import MonitoringTabs from './MonitoringTabs/MonitoringTabs';
 
-// Export interfaces
-export type { AlertsTabProps, AlertsTabReturn } from './AlertsTab.interface';
+export { MonitoringTabs };
