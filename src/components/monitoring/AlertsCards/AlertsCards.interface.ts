@@ -1,11 +1,7 @@
 import { AlertsSummaryData } from '@services/monitoring/monitoring.interface';
 
-export interface AlertsTabProps {
-  className?: string;
-}
-
-export interface AlertsTabReturn {
+export interface AlertsCardsProps {
   alertsSummaryData: AlertsSummaryData | null;
   alertsLoading: boolean;
-  refetchAlertsData: () => void;
+  className?: string;
 }

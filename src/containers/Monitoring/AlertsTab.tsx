@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { AlertsCards } from '@components/monitoring';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { MonitoringActions } from '@redux/monitoring/monitoringSlice';
 import { useGetAlertsDataQuery } from '@services/monitoring/monitoring.api';
 import { KSFlexBox } from 'ks-common';
-import { AlertsTabProps } from './AlertsTab.interface';
+import { AlertsTabProps, AlertsTabReturn } from './AlertsTab.interface';
 
 export const AlertsTab: React.FC<AlertsTabProps> = ({ className }) => {
   const { alertsSummaryData, alertsLoading } = useAppSelector(
@@ -36,13 +36,25 @@ export const AlertsTab: React.FC<AlertsTabProps> = ({ className }) => {
     }
   }, [isError]);
 
+  const alertsTabReturn: AlertsTabReturn = useMemo(
+    () => ({
+      alertsSummaryData,
+      alertsLoading,
+      refetchAlertsData: refetch,
+    }),
+    [alertsSummaryData, alertsLoading, refetch]
+  );
+
   return (
     <KSFlexBox 
       flexDirection="column" 
       gap={6} 
       className={`kms-mt-6 ${className || ''}`}
     >
-      <AlertsCards />
+      <AlertsCards
+        alertsSummaryData={alertsTabReturn.alertsSummaryData}
+        alertsLoading={alertsTabReturn.alertsLoading}
+      />
       {/* Future: Add AlertsTable component here */}
     </KSFlexBox>
   );

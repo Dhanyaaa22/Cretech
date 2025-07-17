@@ -1,16 +1,17 @@
 import { useMemo } from 'react';
 import { KSMetricCard, MetricItem } from 'ks-common';
 import { t } from 'ks-common/locales';
-import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { useAppDispatch } from '@redux/hooks';
 import { CardLoader } from '@components/common';
 import { MonitoringActions } from '@redux/monitoring/monitoringSlice';
 import { ADVANCE_FILTER_KEYS_ALERTS } from '@containers/Monitoring/constants';
+import { AlertsByTypeCardProps } from './AlertsByTypeCard.interface';
 
-export const AlertsByTypeCard: React.FC = () => {
-  const { alertsSummaryData, alertsLoading } = useAppSelector(
-    (state) => state.monitoring
-  );
-
+export const AlertsByTypeCard: React.FC<AlertsByTypeCardProps> = ({
+  alertsSummaryData,
+  alertsLoading,
+  className,
+}) => {
   const dispatch = useAppDispatch();
 
   const { subscriptionExpirationAlerts, capacityUsageAlerts } = useMemo(() => {
@@ -74,7 +75,7 @@ export const AlertsByTypeCard: React.FC = () => {
 
   return (
     <KSMetricCard
-      className="kms-grow"
+      className={`kms-grow ${className || ''}`}
       title={t('keystone.headers.unresolvedAlertsByType')}
       metricItems={alertsByTypeMetrics}
       isThin

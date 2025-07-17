@@ -3,16 +3,17 @@ import { NoticeTriangleIcon } from '@netapp/bxp-style/react-icons/Notification';
 import { InformationIcon } from '@netapp/bxp-style/react-icons/Help';
 import { KSMetricCard, MetricItem } from 'ks-common';
 import { t } from 'ks-common/locales';
-import { useAppDispatch, useAppSelector } from '@redux/hooks';
+import { useAppDispatch } from '@redux/hooks';
 import { CardLoader } from '@components/common';
 import { MonitoringActions } from '@redux/monitoring/monitoringSlice';
 import { ADVANCE_FILTER_KEYS_ALERTS } from '@containers/Monitoring/constants';
+import { AlertsBySeverityCardProps } from './AlertsBySeverityCard.interface';
 
-export const AlertsBySeverityCard: React.FC = () => {
-  const { alertsSummaryData, alertsLoading } = useAppSelector(
-    (state) => state.monitoring
-  );
-
+export const AlertsBySeverityCard: React.FC<AlertsBySeverityCardProps> = ({
+  alertsSummaryData,
+  alertsLoading,
+  className,
+}) => {
   const dispatch = useAppDispatch();
 
   const { criticalAlerts, warningAlerts, informationalAlerts } = useMemo(() => {
@@ -91,7 +92,7 @@ export const AlertsBySeverityCard: React.FC = () => {
 
   return (
     <KSMetricCard
-      className="kms-grow"
+      className={`kms-grow ${className || ''}`}
       title={t('keystone.headers.unresolvedAlertsBySeverity')}
       metricItems={alertsBySeverityMetrics}
       isThin

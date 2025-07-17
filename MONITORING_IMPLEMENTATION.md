@@ -14,15 +14,18 @@ src/
 │   └── monitoringSlice.ts         # Redux slice for monitoring state
 ├── components/monitoring/
 │   ├── AlertsBySeverityCard/
-│   │   └── AlertsBySeverityCard.tsx
+│   │   ├── AlertsBySeverityCard.tsx
+│   │   └── AlertsBySeverityCard.interface.ts
 │   ├── AlertsByTypeCard/
-│   │   └── AlertsByTypeCard.tsx
+│   │   ├── AlertsByTypeCard.tsx
+│   │   └── AlertsByTypeCard.interface.ts
 │   ├── AlertsCards/
-│   │   └── AlertsCards.tsx        # Parent component
+│   │   ├── AlertsCards.tsx        # Parent component
+│   │   └── AlertsCards.interface.ts
 │   └── index.ts                   # Component exports
 ├── containers/Monitoring/
 │   ├── AlertsTab.tsx              # Main container component
-│   ├── AlertsTab.interface.ts
+│   ├── AlertsTab.interface.ts     # Includes AlertsTabReturn interface
 │   ├── constants.ts               # Filter constants
 │   └── index.ts                   # Container exports
 ```
@@ -31,6 +34,7 @@ src/
 
 ### 1. AlertsBySeverityCard
 - **Purpose**: Displays alerts grouped by severity (Critical, Warning, Informational)
+- **Props**: `AlertsBySeverityCardProps` - receives `alertsSummaryData`, `alertsLoading`, and optional `className`
 - **Features**: 
   - Uses `KSMetricCard` from ks-common
   - Shows counts for each severity level
@@ -39,6 +43,7 @@ src/
 
 ### 2. AlertsByTypeCard
 - **Purpose**: Displays alerts grouped by type (Subscription Expiration, Capacity Usage)
+- **Props**: `AlertsByTypeCardProps` - receives `alertsSummaryData`, `alertsLoading`, and optional `className`
 - **Features**:
   - Similar structure to AlertsBySeverityCard
   - Type-specific metrics
@@ -46,17 +51,22 @@ src/
 
 ### 3. AlertsCards (Parent Component)
 - **Purpose**: Layout component that renders both alert cards
+- **Props**: `AlertsCardsProps` - receives `alertsSummaryData`, `alertsLoading`, and optional `className`
 - **Features**:
   - Responsive flexbox layout
+  - Passes props down to child cards
   - Matches the pattern from `NodesInClustersCards`
 
 ### 4. AlertsTab (Container)
 - **Purpose**: Main container component for the alerts tab
+- **Props**: `AlertsTabProps` - receives optional `className`
+- **Return Interface**: `AlertsTabReturn` - provides `alertsSummaryData`, `alertsLoading`, and `refetchAlertsData`
 - **Features**:
   - Data fetching using RTK Query
   - Redux state management
   - Error handling
   - Loading state management
+  - Returns constant interface for container usage
 
 ## 🔧 Redux Integration
 
