@@ -1,0 +1,188 @@
+.alert-severity-card {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: all 0.3s ease;
+}
+
+.alert-content {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  gap: 12px;
+}
+
+.alert-icon {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.alert-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.alert-title {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #333;
+}
+
+.alert-message {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #555;
+}
+
+.alert-close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 8px;
+  color: #666;
+  line-height: 1;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.alert-close-btn:hover {
+  color: #333;
+}
+
+.alert-close-btn:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Severity-specific styles */
+.alert-severity-success {
+  border-color: #c3e6cb;
+}
+
+.alert-severity-success .alert-icon {
+  color: #155724;
+}
+
+.alert-severity-success .alert-title {
+  color: #155724;
+}
+
+.alert-severity-success .alert-message {
+  color: #155724;
+}
+
+.alert-severity-warning {
+  border-color: #ffeaa7;
+}
+
+.alert-severity-warning .alert-icon {
+  color: #856404;
+}
+
+.alert-severity-warning .alert-title {
+  color: #856404;
+}
+
+.alert-severity-warning .alert-message {
+  color: #856404;
+}
+
+.alert-severity-error {
+  border-color: #f5c6cb;
+}
+
+.alert-severity-error .alert-icon {
+  color: #721c24;
+}
+
+.alert-severity-error .alert-title {
+  color: #721c24;
+}
+
+.alert-severity-error .alert-message {
+  color: #721c24;
+}
+
+.alert-severity-info {
+  border-color: #bee5eb;
+}
+
+.alert-severity-info .alert-icon {
+  color: #0c5460;
+}
+
+.alert-severity-info .alert-title {
+  color: #0c5460;
+}
+
+.alert-severity-info .alert-message {
+  color: #0c5460;
+}
+
+.alert-severity-critical {
+  border-color: #f5c6cb;
+  animation: pulse 2s infinite;
+}
+
+.alert-severity-critical .alert-icon {
+  color: #721c24;
+}
+
+.alert-severity-critical .alert-title {
+  color: #721c24;
+}
+
+.alert-severity-critical .alert-message {
+  color: #721c24;
+}
+
+/* Animation for critical alerts */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+  }
+  100% {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .alert-severity-card {
+    padding: 12px;
+    margin: 6px 0;
+  }
+  
+  .alert-content {
+    gap: 8px;
+  }
+  
+  .alert-icon {
+    font-size: 18px;
+  }
+  
+  .alert-title {
+    font-size: 15px;
+  }
+  
+  .alert-message {
+    font-size: 13px;
+  }
+}
