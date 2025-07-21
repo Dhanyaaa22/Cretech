@@ -1,0 +1,132 @@
+/* Alert Summary */
+.alert-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.summary-section h3 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.severity-cards,
+.type-cards {
+  display: flex;
+  gap: 20px;
+}
+
+.alert-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-width: 200px;
+}
+
+.alert-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.alert-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.alert-card.critical .alert-icon {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.alert-card.warning .alert-icon {
+  background: #fff8e1;
+  color: #f57c00;
+}
+
+.alert-card.informational .alert-icon {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.alert-card.subscription .alert-icon {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.alert-card.capacity .alert-icon {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.alert-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.alert-count {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+}
+
+.alert-label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.view-link {
+  background: none;
+  border: none;
+  color: #0067c5;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 4px;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+}
+
+.view-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .alert-summary {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .severity-cards,
+  .type-cards {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .severity-cards,
+  .type-cards {
+    flex-direction: column;
+  }
+  
+  .alert-card {
+    min-width: auto;
+  }
+}

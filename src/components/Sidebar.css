@@ -1,0 +1,47 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 60px;
+  width: 60px;
+  height: calc(100vh - 60px);
+  background: #2a3f5f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  gap: 15px;
+  z-index: 999;
+}
+
+.nav-item {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #8da4c4;
+  transition: all 0.2s;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.nav-item.active {
+  background: #0067c5;
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 50px;
+  }
+  
+  .nav-item {
+    width: 35px;
+    height: 35px;
+  }
+}
