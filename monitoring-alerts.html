@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keystone - Monitoring</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <i class="fas fa-cube"></i>
+                <span>NetApp</span>
+                <span class="blue-text">BlueXP</span>
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="BlueXP Search" class="search-input">
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="dropdown">
+                <button class="dropdown-btn">
+                    <span>Organization</span>
+                    <span class="org-name">KeystoneTestQA</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="dropdown">
+                <button class="dropdown-btn">
+                    <span>Project</span>
+                    <span class="project-name">TestQA</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="dropdown">
+                <button class="dropdown-btn">
+                    <span>Connector</span>
+                    <span class="connector-name">N/A</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="header-icons">
+                <button class="icon-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">10</span>
+                </button>
+                <button class="icon-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="icon-btn">
+                    <i class="fas fa-question-circle"></i>
+                </button>
+                <button class="icon-btn">
+                    <i class="fas fa-user-circle"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="nav-item">
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-layer-group"></i>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-heart"></i>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-heart"></i>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-plus-circle"></i>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-cog"></i>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-info-circle"></i>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <i class="fas fa-star"></i>
+            <div class="keystone-badge">
+                <i class="fas fa-key"></i>
+                <span>Keystone</span>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="page-nav">
+            <a href="#overview" class="nav-tab">Overview</a>
+            <a href="#subscriptions" class="nav-tab">Subscriptions</a>
+            <a href="#assets" class="nav-tab">Assets</a>
+            <a href="#monitoring" class="nav-tab active">Monitoring</a>
+            <a href="#administration" class="nav-tab">Administration</a>
+        </nav>
+
+        <!-- Monitoring Section -->
+        <div class="monitoring-container">
+            <div class="monitoring-header">
+                <h1>Monitoring</h1>
+                <div class="last-updated">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Last updated: Jan 30, 2024, 2:30 PM</span>
+                </div>
+            </div>
+
+            <!-- Sub Navigation -->
+            <div class="sub-nav">
+                <button class="sub-nav-tab active" data-tab="alerts">Alerts</button>
+                <button class="sub-nav-tab" data-tab="monitors">Alert monitors</button>
+                <button class="sub-nav-tab" data-tab="reports">Reports</button>
+            </div>
+
+            <!-- Alerts Content -->
+            <div id="alerts-content" class="tab-content active">
+                <!-- Alert Summary Cards -->
+                <div class="alert-summary">
+                    <div class="summary-section">
+                        <h3>Unresolved alerts by severity</h3>
+                        <div class="severity-cards">
+                            <div class="alert-card critical">
+                                <div class="alert-icon">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <div class="alert-info">
+                                    <span class="alert-count">4</span>
+                                    <span class="alert-label">Critical</span>
+                                    <a href="#" class="view-link">View</a>
+                                </div>
+                            </div>
+                            <div class="alert-card warning">
+                                <div class="alert-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="alert-info">
+                                    <span class="alert-count">2</span>
+                                    <span class="alert-label">Warning</span>
+                                    <a href="#" class="view-link">View</a>
+                                </div>
+                            </div>
+                            <div class="alert-card informational">
+                                <div class="alert-icon">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div class="alert-info">
+                                    <span class="alert-count">0</span>
+                                    <span class="alert-label">Informational</span>
+                                    <a href="#" class="view-link">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-section">
+                        <h3>Unresolved alerts by type</h3>
+                        <div class="type-cards">
+                            <div class="alert-card subscription">
+                                <div class="alert-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="alert-info">
+                                    <span class="alert-count">3</span>
+                                    <span class="alert-label">Subscription expiration</span>
+                                    <a href="#" class="view-link">View</a>
+                                </div>
+                            </div>
+                            <div class="alert-card capacity">
+                                <div class="alert-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div class="alert-info">
+                                    <span class="alert-count">3</span>
+                                    <span class="alert-label">Capacity usage</span>
+                                    <a href="#" class="view-link">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alerts Table -->
+                <div class="alerts-table-container">
+                    <div class="table-header">
+                        <h3>Alerts (6)</h3>
+                        <div class="table-actions">
+                            <button class="filter-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <button class="export-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="alerts-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span>Severity</span>
+                                        <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th>
+                                        <span>Alert ID</span>
+                                        <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th>
+                                        <span>Alert</span>
+                                        <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th>
+                                        <span>Triggered time</span>
+                                        <i class="fas fa-sort-down"></i>
+                                    </th>
+                                    <th>
+                                        <span>Subscription number</span>
+                                        <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th>
+                                        <span>Tracking ID</span>
+                                        <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th>
+                                        <span>Performance service levels</span>
+                                        <i class="fas fa-sort"></i>
+                                    </th>
+                                    <th>
+                                        <span>Status</span>
+                                        <i class="fas fa-sort"></i>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="alerts-table-body">
+                                <!-- Table rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <span class="pagination-info">1 - 6 of 6</span>
+                        <div class="pagination-controls">
+                            <button class="pagination-btn" disabled>
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span class="page-number">1</span>
+                            <button class="pagination-btn" disabled>
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert Monitors Content -->
+            <div id="monitors-content" class="tab-content">
+                <div class="placeholder-content">
+                    <h3>Alert Monitors</h3>
+                    <p>Configure and manage alert monitoring rules and thresholds.</p>
+                </div>
+            </div>
+
+            <!-- Reports Content -->
+            <div id="reports-content" class="tab-content">
+                <div class="placeholder-content">
+                    <h3>Reports</h3>
+                    <p>View and generate monitoring and alert reports.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

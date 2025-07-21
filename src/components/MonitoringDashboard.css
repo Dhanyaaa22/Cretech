@@ -1,0 +1,149 @@
+.monitoring-dashboard {
+  max-width: 1400px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.breadcrumb i {
+  color: #666;
+}
+
+.keystone-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e8f4f8;
+  padding: 6px 12px;
+  border-radius: 16px;
+  color: #0067c5;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Page Navigation */
+.page-nav {
+  display: flex;
+  gap: 0;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #e1e5e9;
+}
+
+.nav-tab {
+  padding: 12px 24px;
+  text-decoration: none;
+  color: #666;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.nav-tab:hover {
+  color: #0067c5;
+}
+
+.nav-tab.active {
+  color: #0067c5;
+  border-bottom-color: #0067c5;
+}
+
+/* Monitoring Container */
+.monitoring-container {
+  max-width: 1400px;
+}
+
+.monitoring-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.monitoring-header h1 {
+  font-size: 28px;
+  color: #333;
+  font-weight: 600;
+}
+
+.last-updated {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  font-size: 14px;
+}
+
+.last-updated i {
+  color: #0067c5;
+}
+
+/* Sub Navigation */
+.sub-nav {
+  display: flex;
+  gap: 0;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #e1e5e9;
+}
+
+.sub-nav-tab {
+  background: none;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  color: #666;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.sub-nav-tab:hover {
+  color: #0067c5;
+}
+
+.sub-nav-tab.active {
+  color: #0067c5;
+  border-bottom-color: #0067c5;
+}
+
+/* Tab Content */
+.tab-content {
+  display: block;
+}
+
+/* Placeholder Content */
+.placeholder-content {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.placeholder-content h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .monitoring-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .page-nav {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .sub-nav {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
