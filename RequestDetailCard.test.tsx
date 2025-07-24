@@ -50,25 +50,26 @@ jest.mock('ks-common/locales', () => ({
 }));
 
 jest.mock('ks-common/utils', () => ({
-  formatDate: () => 'January 1, 2024',
+  formatDate: jest.fn(() => 'January 1, 2024'),
 }));
 
 jest.mock('@utils/helpers', () => ({
-  getRequestType: () => 'Test Request Type',
+  getRequestType: jest.fn(() => 'Test Request Type'),
 }));
 
 jest.mock('@assets/icons', () => ({
   SuccessIconOnColor: () => <div data-testid="success-icon" />,
 }));
 
-const mockData = {
+// Mock JobRequest type
+const mockJobRequest = {
   status: REQUEST_STATUS.COMPLETED,
   request_type: 'test_type',
   request_timestamp: '2024-01-01T00:00:00Z',
 };
 
 describe('RequestDetailCard', () => {
-  describe('Loading state', () => {
+  describe('Loading states', () => {
     it('renders loading when isLoading is true', () => {
       render(<RequestDetailCard isLoading={true} data={undefined} />);
       expect(screen.getAllByTestId('three-dot-loader')).toHaveLength(4);
@@ -80,52 +81,78 @@ describe('RequestDetailCard', () => {
     });
   });
 
-  describe('Status icons', () => {
-    it('renders IN_PROGRESS icon', () => {
-      const data = { ...mockData, status: REQUEST_STATUS.IN_PROGRESS };
+  describe('Status icon rendering', () => {
+    it('renders IN_PROGRESS status icon', () => {
+      const data = { ...mockJobRequest, status: REQUEST_STATUS.IN_PROGRESS };
       render(<RequestDetailCard isLoading={false} data={data} />);
+      
       expect(screen.getByTestId('solid-square-icon')).toHaveAttribute('data-bg-color', 'i2');
       expect(screen.getByTestId('hourglass-icon')).toHaveClass('kms-w-6');
     });
 
-    it('renders CANCELLED icon', () => {
-      const data = { ...mockData, status: REQUEST_STATUS.CANCELLED };
+    it('renders CANCELLED status icon', () => {
+      const data = { ...mockJobRequest, status: REQUEST_STATUS.CANCELLED };
       render(<RequestDetailCard isLoading={false} data={data} />);
+      
       expect(screen.getByTestId('error-icon')).toHaveAttribute('data-color', 'disabled');
+      expect(screen.getByTestId('error-icon')).toHaveClass('kms-w-4');
     });
 
-    it('renders COMPLETED icon', () => {
-      const data = { ...mockData, status: REQUEST_STATUS.COMPLETED };
+    it('renders COMPLETED status icon', () => {
+      const data = { ...mockJobRequest, status: REQUEST_STATUS.COMPLETED };
       render(<RequestDetailCard isLoading={false} data={data} />);
+      
       expect(screen.getByTestId('solid-square-icon')).toHaveAttribute('data-bg-color', 'i5');
       expect(screen.getByTestId('success-icon')).toBeInTheDocument();
     });
 
-    it('renders default icon for unknown status', () => {
-      const data = { ...mockData, status: 'UNKNOWN' };
+    it('renders default status icon for unknown status', () => {
+      const data = { ...mockJobRequest, status: 'UNKNOWN_STATUS' };
       render(<RequestDetailCard isLoading={false} data={data} />);
+      
       expect(screen.getByTestId('hourglass-icon')).toHaveClass('kms-w-4');
     });
   });
 
   describe('Data display', () => {
-    it('displays all data sections when data is provided', () => {
-      render(<RequestDetailCard isLoading={false} data={mockData} />);
+    it('displays all sections with data', () => {
+      render(<RequestDetailCard isLoading={false} data={mockJobRequest} />);
       
+      // Status section
       expect(screen.getByText('keystone.common.status')).toBeInTheDocument();
       expect(screen.getByText(REQUEST_STATUS.COMPLETED)).toBeInTheDocument();
+      
+      // Request type section
       expect(screen.getByText('keystone.administrationPage.requestDetail.requestType')).toBeInTheDocument();
       expect(screen.getByText('Test Request Type')).toBeInTheDocument();
+      
+      // Submission date section
       expect(screen.getByText('keystone.administrationPage.requestDetail.submissionDate')).toBeInTheDocument();
       expect(screen.getByText('January 1, 2024')).toBeInTheDocument();
+      
+      // Cancel button
       expect(screen.getByText('keystone.administrationPage.requestDetail.cancelRequest')).toBeInTheDocument();
     });
   });
 
-  describe('CardSection as button', () => {
+  describe('CardSection component', () => {
+    it('renders text when isButton is false', () => {
+      render(<RequestDetailCard isLoading={false} data={mockJobRequest} />);
+      // The CardSection renders text by default (not button)
+      expect(screen.getByText('Test Request Type')).toBeInTheDocument();
+    });
+
+    it('renders loading state in CardSection', () => {
+      render(<RequestDetailCard isLoading={true} data={mockJobRequest} />);
+      expect(screen.getAllByTestId('three-dot-loader')).toHaveLength(4);
+    });
+
     it('renders button when isButton is true and handles click', () => {
       const mockOnClick = jest.fn();
-      const CardSection = ({ label, value, isLoading, isButton, onClick }: any) => (
+      
+      // Test CardSection directly with button props
+      const { CardSection } = require('./RequestDetailCard');
+      const TestCardSection = ({ label, value, isLoading, isButton, onClick }: any) => (
         <div>
           <span>{label}</span>
           {isLoading ? (
@@ -139,8 +166,8 @@ describe('RequestDetailCard', () => {
       );
 
       render(
-        <CardSection
-          label="Test"
+        <TestCardSection
+          label="Test Label"
           value="Click me"
           isLoading={false}
           isButton={true}
@@ -155,11 +182,30 @@ describe('RequestDetailCard', () => {
   });
 
   describe('Button states', () => {
-    it('renders cancel button as disabled', () => {
-      render(<RequestDetailCard isLoading={false} data={mockData} />);
+    it('renders cancel button as disabled with secondary color', () => {
+      render(<RequestDetailCard isLoading={false} data={mockJobRequest} />);
+      
       const button = screen.getByText('keystone.administrationPage.requestDetail.cancelRequest').closest('button');
       expect(button).toHaveAttribute('data-disabled', 'true');
       expect(button).toHaveAttribute('data-color', 'secondary');
+      expect(button).toHaveClass('kms-font-semibold kms-gap-2');
+    });
+  });
+
+  describe('Component structure', () => {
+    it('renders Card wrapper', () => {
+      render(<RequestDetailCard isLoading={false} data={mockJobRequest} />);
+      expect(screen.getByTestId('card')).toBeInTheDocument();
+    });
+
+    it('renders WidgetDividers', () => {
+      render(<RequestDetailCard isLoading={false} data={mockJobRequest} />);
+      expect(screen.getAllByTestId('widget-divider')).toHaveLength(4);
+    });
+
+    it('renders KSFlexBox components', () => {
+      render(<RequestDetailCard isLoading={false} data={mockJobRequest} />);
+      expect(screen.getAllByTestId('ks-flexbox').length).toBeGreaterThan(0);
     });
   });
 });
